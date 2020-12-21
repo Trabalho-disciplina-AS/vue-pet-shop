@@ -417,12 +417,12 @@ export default {
       accessories: [],
       cleanings: [],
       medicines: [],
-      baseUrl: "http://localhost:5005/product_image/",
+      baseUrl: "http://localhost:5000/product_image/",
     };
   },
   created: function () {
     axios
-      .get("http://localhost:5005/products_varied?qtd=4&category=alimentos")
+      .get("http://localhost:5000/products_varied?qtd=4&category=alimentos")
       .then((res) => {
         this.foods = res.data;
         for (var prop in this.foods) {
@@ -433,7 +433,7 @@ export default {
       });
 
     axios
-      .get("http://localhost:5005/products_varied?qtd=4&category=acessorios")
+      .get("http://localhost:5000/products_varied?qtd=4&category=acessorios")
       .then((res) => {
         this.accessories = res.data;
         for (var prop in this.accessories) {
@@ -445,7 +445,7 @@ export default {
       });
 
     axios
-      .get("http://localhost:5005/products_varied?qtd=4&&category=limpeza")
+      .get("http://localhost:5000/products_varied?qtd=4&&category=limpeza")
       .then((res) => {
         this.cleanings = res.data;
         for (var prop in this.cleanings) {
@@ -456,7 +456,7 @@ export default {
       });
 
     axios
-      .get("http://localhost:5005/products_varied?qtd=4&&category=remedios")
+      .get("http://localhost:5000/products_varied?qtd=4&&category=remedios")
       .then((res) => {
         this.medicines = res.data;
         for (var prop in this.medicines) {

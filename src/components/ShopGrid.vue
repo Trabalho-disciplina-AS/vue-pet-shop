@@ -185,7 +185,7 @@ export default {
       categoryPage: this.$route.params.category,
       products: {},
       newProducts: {},
-      baseUrl: "http://localhost:5005/product_image/",
+      baseUrl: "http://localhost:5000/product_image/",
     };
   },
   methods: {
@@ -199,7 +199,7 @@ export default {
   created: function () {
     axios
       .get(
-        "http://localhost:5005/products_varied?qtd=6&category=" +
+        "http://localhost:5000/products_varied?qtd=6&category=" +
           this.categoryPage
       )
       .then((res) => {
@@ -214,7 +214,7 @@ export default {
 
     axios
       .get(
-        "http://localhost:5005/products_varied?qtd=3&category=" +
+        "http://localhost:5000/products_varied?qtd=3&category=" +
           this.categoryPage
       )
       .then((res) => {

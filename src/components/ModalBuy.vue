@@ -435,7 +435,7 @@ export default {
       accessories: [],
       cleanings: [],
       medicines: [],
-      baseUrl: "http://localhost:5005/product_image/",
+      baseUrl: "http://localhost:5000/product_image/",
     };
   },
 
@@ -443,7 +443,7 @@ export default {
     addItem(product) {
       var config = {
         method: "post",
-        url: "http://localhost:5002/purchase_item",
+        url: "http://localhost:5001/purchase_item",
         headers: {
           "Content-Type": "application/json",
         },
@@ -462,7 +462,7 @@ export default {
 
   created: function () {
     axios
-      .get("http://localhost:5005/products_varied?qtd=4&category=alimentos")
+      .get("http://localhost:5000/products_varied?qtd=4&category=alimentos")
       .then((res) => {
         this.foods = res.data;
         for (var prop in this.foods) {
@@ -471,16 +471,10 @@ export default {
           this.foods[prop]["image_url"] =
             this.baseUrl + this.foods[prop]["_id"];
         }
-
-        // axios
-        //   .get("http://localhost:5010/stock/" + this.foods[prop]["_id"])
-        //   .then((resStock) => {
-        //     this.foods[prop]["qtd_stock"] = resStock.data["quantity"];
-        //   });
       });
 
     axios
-      .get("http://localhost:5005/products_varied?qtd=4&category=acessorios")
+      .get("http://localhost:5000/products_varied?qtd=4&category=acessorios")
       .then((res) => {
         this.accessories = res.data;
         for (var prop in this.accessories) {
@@ -492,15 +486,10 @@ export default {
         console.log("HERE DENIS");
         console.log(this.accessories);
 
-        // axios
-        //   .get("http://localhost:5010/stock/" + this.accessories[prop]["_id"])
-        //   .then((resStock) => {
-        //     this.accessories[prop]["qtd_stock"] = resStock.data["quantity"];
-        //   });
       });
 
     axios
-      .get("http://localhost:5005/products_varied?qtd=4&&category=limpeza")
+      .get("http://localhost:5000/products_varied?qtd=4&&category=limpeza")
       .then((res) => {
         this.cleanings = res.data;
         for (var prop in this.cleanings) {
@@ -509,16 +498,10 @@ export default {
           this.cleanings[prop]["image_url"] =
             this.baseUrl + this.cleanings[prop]["_id"];
         }
-
-        // axios
-        //   .get("http://localhost:5010/stock/" + this.cleanings[prop]["_id"])
-        //   .then((resStock) => {
-        //     this.cleanings[prop]["qtd_stock"] = resStock.data["quantity"];
-        //   });
       });
 
     axios
-      .get("http://localhost:5005/products_varied?qtd=4&&category=remedios")
+      .get("http://localhost:5000/products_varied?qtd=4&&category=remedios")
       .then((res) => {
         this.medicines = res.data;
         for (var prop in this.medicines) {
@@ -527,12 +510,6 @@ export default {
           this.medicines[prop]["image_url"] =
             this.baseUrl + this.medicines[prop]["_id"];
         }
-
-        // axios
-        //   .get("http://localhost:5010/stock/" + this.medicines[prop]["_id"])
-        //   .then((resStock) => {
-        //     this.medicines[prop]["qtd_stock"] = resStock.data["quantity"];
-        //   });
       });
   },
 };

@@ -134,7 +134,7 @@ export default {
   data() {
     return {
       itensPurchase: [],
-      imageUrl: "http://localhost:5005/product_image/",
+      imageUrl: "http://localhost:5000/product_image/",
       subtotal: 0,
     };
   },
@@ -164,7 +164,7 @@ export default {
 
       var config = {
         method: "put",
-        url: "http://localhost:5002/purchase_item",
+        url: "http://localhost:5001/purchase_item",
         headers: {
           "Content-Type": "application/json",
         },
@@ -183,7 +183,7 @@ export default {
     },
     removeItem: function (item_id) {
       axios
-        .delete("http://localhost:5002/purchase_item/item/" + item_id)
+        .delete("http://localhost:5001/purchase_item/item/" + item_id)
         .then((res) => {
           console.log(res.data);
           this.calculateSubtotal();
@@ -191,7 +191,7 @@ export default {
     },
   },
   created: function () {
-    axios.get("http://localhost:5002/purchase_item").then((res) => {
+    axios.get("http://localhost:5001/purchase_item").then((res) => {
       console.log(res.data);
       this.itensPurchase = res.data[0];
       console.log(this.itensPurchase.itens);

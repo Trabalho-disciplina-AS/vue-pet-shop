@@ -102,7 +102,7 @@ export default {
     //     console.log(error);
     //   });
 
-    axios.get("http://localhost:5002/purchase_item").then((res) => {
+    axios.get("http://localhost:5001/purchase_item").then((res) => {
       this.items = res.data[0];
     });
   },

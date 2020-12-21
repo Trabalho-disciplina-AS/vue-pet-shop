@@ -272,11 +272,11 @@ export default {
       product6: {},
       product7: {},
       product8: {},
-      baseUrl: "http://localhost:5005/product_image/",
+      baseUrl: "http://localhost:5000/product_image/",
     };
   },
   created: function () {
-    axios.get("http://localhost:5005/products_varied?qtd=8").then((res) => {
+    axios.get("http://localhost:5000/products_varied?qtd=8").then((res) => {
       this.product1 = res.data[0];
       this.product1["image_url"] = this.baseUrl + this.product1["_id"];
 
