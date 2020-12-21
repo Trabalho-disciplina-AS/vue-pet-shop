@@ -52,6 +52,18 @@
                 </div>
                 <div class="col-lg-6 col-md-6 col-12">
                   <div class="form-group">
+                    <label>CPF<span>*</span></label>
+                    <input
+                      v-model="user.cpf"
+                      type="cpf"
+                      name="cpf"
+                      placeholder=""
+                      required="required"
+                    />
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-12">
+                  <div class="form-group">
                     <label>Telefone<span>*</span></label>
                     <input
                       v-model="user.celphone"

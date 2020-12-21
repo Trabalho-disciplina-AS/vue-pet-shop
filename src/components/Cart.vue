@@ -70,7 +70,7 @@
                 </td>
                 <td class="total-amount" data-title="Total">
                   <span
-                    >${{ Math.round(item.price * item.qtd * 100) / 100 }}</span
+                    >${{ Math.round(item.price * item.qtd * 100) / 100 }} </span
                   >
                 </td>
                 <td class="action" data-title="Remove">
@@ -92,9 +92,9 @@
               <div class="col-lg-8 col-md-5 col-12">
                 <div class="left">
                   <div class="coupon">
-                    <form action="#" target="_blank">
-                      <input name="Coupon" placeholder="Digite seu CEP" />
-                      <button class="btn">CONSULTAR</button>
+                    <form>
+                      <input v-model="cep" placeholder="Digite seu CEP" />
+                      <button @click="getValueCep(cep)" class="btn">CONSULTAR</button>
                     </form>
                   </div>
                 </div>
@@ -105,8 +105,8 @@
                     <li>
                       Subtotal<span>${{ subtotal }}</span>
                     </li>
-                    <li>Frete<span>Free</span></li>
-                    <li class="last">Valor Total<span>$310.00</span></li>
+                    <li>Frete<span>{{ delivery_fee }}</span></li>
+                    <li class="last">Valor Total<span>R$ {{ total }}</span></li>
                   </ul>
                   <div class="button5">
                     <div @click="redirectCheckout()" class="btn">Comprar</div>
@@ -136,9 +136,22 @@ export default {
       itensPurchase: [],
       imageUrl: "http://localhost:5000/product_image/",
       subtotal: 0,
+      total: null,
+      cep: null,
+      delivery_fee: null,
     };
   },
   methods: {
+    getValueCep(cep) {
+
+    axios
+      .get("http://localhost:4004/calculate_fee?cep=" + cep)
+      .then((res) => {
+        this.delivery_fee = parseFloat(res.data);
+        this.total = (this.subtotal + this.delivery_fee).toFixed(2);
+      });
+
+    },
     calculateSubtotal() {
       this.subtotal = 0;
       for (var prop in this.itensPurchase.itens) {
@@ -146,7 +159,10 @@ export default {
           this.itensPurchase.itens[prop].price *
           this.itensPurchase.itens[prop].qtd;
       }
+
+      this.total = (this.subtotal + this.delivery_fee).toFixed(2);
     },
+
     lessQtd: function (obj) {
       if (obj.qtd == 1) {
         obj.qtd == 1;
@@ -160,15 +176,14 @@ export default {
       this.calculateSubtotal();
     },
     redirectCheckout: function () {
-      this.calculateSubtotal();
-
+      this.calculateSubtotal(); 
       var config = {
         method: "put",
         url: "http://localhost:5001/purchase_item",
         headers: {
           "Content-Type": "application/json",
         },
-        data: JSON.stringify({ subtotal: this.subtotal }),
+        data: { subtotal: this.subtotal, total: this.total, delivery_fee: this.delivery_fee },
       };
 
       axios(config)
@@ -196,6 +211,7 @@ export default {
       this.itensPurchase = res.data[0];
       console.log(this.itensPurchase.itens);
       this.calculateSubtotal();
+      this.total = this.subtotal; 
     });
   },
 };

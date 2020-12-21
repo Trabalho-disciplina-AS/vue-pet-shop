@@ -1,6 +1,8 @@
 <template>
   <!-- Start Checkout -->
-  <section class="shop checkout section">
+
+  <div>
+<section class="shop checkout section">
     <div class="container">
       <div class="row">
         <div class="col-lg-12 col-12">
@@ -13,6 +15,47 @@
         </div>
         <div class="col-lg-12 col-12">
           <div class="order-details">
+
+
+
+
+
+          <table class="table shopping-summery">
+            <thead>
+              <tr class="main-hading">
+                <th>PRODUTO</th>
+                <th>NOME</th>
+                <th class="text-center">PREÇO</th>
+                <th class="text-center">QUANTIDADE</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="item in items.itens" :key="item.id">
+                <td class="image" data-title="No">
+                  <img :src="imageUrl + item.id" alt="#" />
+                </td>
+                <td class="product-des" data-title="Description">
+                  <p class="product-name">
+                    <a href="#">{{ item.name }}</a>
+                  </p>
+                  <p class="product-des">
+                    Maboriosam in a tonto nesciung eget distingy magndapibus.
+                  </p>
+                </td>
+                <td class="price" data-title="Price">
+                  <span>${{ item.price }} </span>
+                </td>
+                <td class="total-amount" data-title="Total">
+                  <span
+                    >{{ item.qtd }}</span
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+
+            <br>
             <!-- Order Widget -->
             <div class="single-widget">
               <h2>CARRINHO DE COMPRAS</h2>
@@ -21,30 +64,26 @@
                   <li>
                     SubTotal<span>${{ items.subtotal }}</span>
                   </li>
-                  <li>FRETE<span>$10.00</span></li>
-                  <li class="last">Total<span>$340.00</span></li>
+                  <li>FRETE<span>R$ {{ items.delivery_fee }}</span></li>
+                  <li class="last">Total<span>R$ {{ items.total }}</span></li>
                 </ul>
               </div>
             </div>
             <!--/ End Order Widget -->
             <!-- Order Widget -->
+
+            <br>
+
             <div class="single-widget">
               <h2>Formas de Pagamento</h2>
               <div class="content">
                 <ul>
-                  <li><router-link to="/cart">Boleto</router-link></li>
+                  <li><a target="_blank" rel="noopener noreferrer" :href="linkPayment">Boleto</a></li>
                   <li>
                     <router-link to="/cart">Cartão de Crédito</router-link>
                   </li>
                 </ul>
-                <!-- <div class="checkbox">
-                  <label class="checkbox-inline" for="1"
-                    ><input name="updates" id="1" type="checkbox" /> Boleto</label
-                  >
-                  <label class="checkbox-inline" for="2"
-                    ><input name="news" id="2" type="checkbox" /> Cartão de Crédito</label
-                  >
-                </div> -->
+
               </div>
             </div>
             <!--/ End Order Widget -->
@@ -70,6 +109,10 @@
     </div>
   </section>
   <!--/ End Checkout -->
+
+  </div>
+
+  
 </template>
 
 <script>
@@ -80,31 +123,20 @@ export default {
   data() {
     return {
       items: {},
+      linkPayment: "",
+      linkCreditCard: "",
+      imageUrl: "http://localhost:5000/product_image/",
     };
   },
   created: function () {
-    // var config = {
-    //   method: "get",
-    //   url: "http://localhost:5002/purchase_item",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    // };
-
-    // axios(config)
-    //   .then(function (res) {
-    //     // this.items = res.data[0];
-    //     var data = res.data[0];
-    //     this.items = data;
-    //     console.log(data);
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
-
     axios.get("http://localhost:5001/purchase_item").then((res) => {
       this.items = res.data[0];
+      console.log("HERE");
+      console.log(this.items);
     });
+
+
+    this.linkPayment = `http://localhost:4001/payment?value=${this.items.subtotal}&name=denis&cpf=064865933&address=rua`
   },
 };
 </script>

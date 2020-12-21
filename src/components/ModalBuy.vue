@@ -441,22 +441,33 @@ export default {
 
   methods: {
     addItem(product) {
-      var config = {
-        method: "post",
-        url: "http://localhost:5001/purchase_item",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        data: product,
-      };
 
-      axios(config)
-        .then(function (response) {
-          console.log(JSON.stringify(response.data));
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+    axios
+      .post("http://localhost:5001/purchase_item", product)
+      .then((res) => {
+          console.log(JSON.stringify(res.data));
+          console.log("OK add normal");
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+      // var config = {
+      //   method: "post",
+      //   url: "http://localhost:5001/purchase_item",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   data: product,
+      // };
+
+      // axios(config)
+      //   .then(function (response) {
+      //     console.log(JSON.stringify(response.data));
+      //   })
+      //   .catch(function (error) {
+      //     console.log(error);
+      //   });
     },
   },
 

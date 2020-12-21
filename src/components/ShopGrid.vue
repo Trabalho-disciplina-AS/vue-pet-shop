@@ -10,7 +10,7 @@
               <!-- Single Widget -->
               <div class="single-widget category">
                 <h3 class="title">Categorias</h3>
-                <ul class="categor-list">
+                <!-- <ul class="categor-list">
                   <li>
                     <route-link to="/shopgrid/alimentos">Alimentos</route-link>
                   </li>
@@ -25,7 +25,7 @@
                   <li>
                     <route-link to="/shopgrid/remedios">Remédios</route-link>
                   </li>
-                </ul>
+                </ul> -->
               </div>
 
               <!--/ End Single Widget -->
