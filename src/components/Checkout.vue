@@ -130,11 +130,16 @@ export default {
   },
   created: function () {
     axios.get("http://localhost:5001/purchase_item").then((res) => {
-      this.items = res.data[0];
-      console.log("HERE");
-      console.log(this.items);
+      this.items = res.data[0];      
     });
 
+    console.log("working...");
+    console.log(this.items.subtotal);
+
+    axios.get("http://localhost:8000/profile").then((res) => {
+      this.items = res.data[0];    
+        
+    });
 
     this.linkPayment = `http://localhost:4001/payment?value=${this.items.subtotal}&name=denis&cpf=064865933&address=rua`
   },
