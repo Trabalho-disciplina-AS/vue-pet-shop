@@ -7,6 +7,8 @@ import ShopGridComponent from './pages/ShopGridComponent'
 import ContactComponent from './pages/ContactComponent'
 import UserRegistryComponent from './pages/UserRegistryComponent'
 import LoginComponent from './pages/LoginComponent'
+import PerfilComponent from './pages/PerfilComponent'
+import CreditCardComponent from './pages/CreditCardComponent'
 
 
 Vue.use(Router)
@@ -21,5 +23,7 @@ export default new Router({
         { path: '/contact', component: ContactComponent },
         { path: '/userregistry', component: UserRegistryComponent },
         { path: '/login', component: LoginComponent },
+        { path: '/perfil', component: PerfilComponent },
+        { path: '/creditcardregistry', component: CreditCardComponent },
     ]
 })

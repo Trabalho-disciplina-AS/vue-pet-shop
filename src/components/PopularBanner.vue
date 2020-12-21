@@ -135,8 +135,8 @@
             <div class="single-product">
               <div class="product-img">
                 <a href="product-details.html">
-                  <img class="default-img" :src="product4.image_url" alt="#" />
-                  <img class="hover-img" :src="product4.image_url" alt="#" />
+                  <img class="default-img" :src="product5.image_url" alt="#" />
+                  <img class="hover-img" :src="product5.image_url" alt="#" />
                 </a>
                 <div class="button-head">
                   <div class="product-action">
@@ -160,6 +160,96 @@
               </div>
             </div>
             <!-- End Single Product -->
+
+            <!-- Start Single Product -->
+            <div class="single-product">
+              <div class="product-img">
+                <a href="product-details.html">
+                  <img class="default-img" :src="product6.image_url" alt="#" />
+                  <img class="hover-img" :src="product6.image_url" alt="#" />
+                </a>
+                <div class="button-head">
+                  <div class="product-action">
+                    <a
+                      data-toggle="modal"
+                      data-target="#exampleModal"
+                      title="Quick View"
+                      href="#"
+                      ><i class="ti-eye"></i><span>Vizualizar</span></a
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="product-content">
+                <h3>
+                  <a href="product-details.html"> {{ product6.name }} </a>
+                </h3>
+                <div class="product-price">
+                  <span>${{ product6.price }} </span>
+                </div>
+              </div>
+            </div>
+            <!-- End Single Product -->
+
+            <!-- Start Single Product -->
+            <div class="single-product">
+              <div class="product-img">
+                <a href="product-details.html">
+                  <img class="default-img" :src="product7.image_url" alt="#" />
+                  <img class="hover-img" :src="product7.image_url" alt="#" />
+                </a>
+                <div class="button-head">
+                  <div class="product-action">
+                    <a
+                      data-toggle="modal"
+                      data-target="#exampleModal"
+                      title="Quick View"
+                      href="#"
+                      ><i class="ti-eye"></i><span>Vizualizar</span></a
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="product-content">
+                <h3>
+                  <a href="product-details.html"> {{ product7.name }} </a>
+                </h3>
+                <div class="product-price">
+                  <span>${{ product7.price }} </span>
+                </div>
+              </div>
+            </div>
+            <!-- End Single Product -->
+
+            <!-- Start Single Product -->
+            <div class="single-product">
+              <div class="product-img">
+                <a href="product-details.html">
+                  <img class="default-img" :src="product8.image_url" alt="#" />
+                  <img class="hover-img" :src="product8.image_url" alt="#" />
+                </a>
+                <div class="button-head">
+                  <div class="product-action">
+                    <a
+                      data-toggle="modal"
+                      data-target="#exampleModal"
+                      title="Quick View"
+                      href="#"
+                      ><i class="ti-eye"></i><span>Vizualizar</span></a
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="product-content">
+                <h3>
+                  <a href="product-details.html"> {{ product8.name }} </a>
+                </h3>
+                <div class="product-price">
+                  <span>${{ product8.price }} </span>
+                </div>
+              </div>
+            </div>
+            <!-- End Single Product -->
           </div>
         </div>
       </div>
@@ -179,11 +269,14 @@ export default {
       product3: {},
       product4: {},
       product5: {},
+      product6: {},
+      product7: {},
+      product8: {},
       baseUrl: "http://localhost:5005/product_image/",
     };
   },
   created: function () {
-    axios.get("http://localhost:5005/products_varied?qtd=5").then((res) => {
+    axios.get("http://localhost:5005/products_varied?qtd=8").then((res) => {
       this.product1 = res.data[0];
       this.product1["image_url"] = this.baseUrl + this.product1["_id"];
 
@@ -198,6 +291,15 @@ export default {
 
       this.product5 = res.data[4];
       this.product5["image_url"] = this.baseUrl + this.product5["_id"];
+
+      this.product6 = res.data[5];
+      this.product6["image_url"] = this.baseUrl + this.product6["_id"];
+
+      this.product7 = res.data[6];
+      this.product7["image_url"] = this.baseUrl + this.product7["_id"];
+
+      this.product8 = res.data[7];
+      this.product8["image_url"] = this.baseUrl + this.product8["_id"];
     });
   },
 };

@@ -18,7 +18,9 @@
               <h2>CARRINHO DE COMPRAS</h2>
               <div class="content">
                 <ul>
-                  <li>SubTotal<span>$330.00</span></li>
+                  <li>
+                    SubTotal<span>${{ items.subtotal }}</span>
+                  </li>
                   <li>FRETE<span>$10.00</span></li>
                   <li class="last">Total<span>$340.00</span></li>
                 </ul>
@@ -29,19 +31,20 @@
             <div class="single-widget">
               <h2>Formas de Pagamento</h2>
               <div class="content">
-                <div class="checkbox">
+                <ul>
+                  <li><router-link to="/cart">Boleto</router-link></li>
+                  <li>
+                    <router-link to="/cart">Cartão de Crédito</router-link>
+                  </li>
+                </ul>
+                <!-- <div class="checkbox">
                   <label class="checkbox-inline" for="1"
-                    ><input name="updates" id="1" type="checkbox" /> Check
-                    Payments</label
+                    ><input name="updates" id="1" type="checkbox" /> Boleto</label
                   >
                   <label class="checkbox-inline" for="2"
-                    ><input name="news" id="2" type="checkbox" /> Cash On
-                    Delivery</label
+                    ><input name="news" id="2" type="checkbox" /> Cartão de Crédito</label
                   >
-                  <label class="checkbox-inline" for="3"
-                    ><input name="news" id="3" type="checkbox" /> PayPal</label
-                  >
-                </div>
+                </div> -->
               </div>
             </div>
             <!--/ End Order Widget -->
@@ -56,7 +59,7 @@
             <div class="single-widget get-button">
               <div class="content">
                 <div class="button">
-                  <a href="#" class="btn">proceed to checkout</a>
+                  <a href="#" class="btn">Finalizar Compra</a>
                 </div>
               </div>
             </div>
@@ -70,8 +73,39 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "Checkout",
+  data() {
+    return {
+      items: {},
+    };
+  },
+  created: function () {
+    // var config = {
+    //   method: "get",
+    //   url: "http://localhost:5002/purchase_item",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    // };
+
+    // axios(config)
+    //   .then(function (res) {
+    //     // this.items = res.data[0];
+    //     var data = res.data[0];
+    //     this.items = data;
+    //     console.log(data);
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error);
+    //   });
+
+    axios.get("http://localhost:5002/purchase_item").then((res) => {
+      this.items = res.data[0];
+    });
+  },
 };
 </script>
 

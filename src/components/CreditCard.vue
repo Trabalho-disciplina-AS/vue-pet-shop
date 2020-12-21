@@ -117,42 +117,15 @@
 </template>
 
 <script>
-import axios from "axios";
+// import axios from "axios";
 
 export default {
-  name: "Contact",
+  name: "CreditCard",
   data() {
-    return {
-      processEmail: {
-        name: null,
-        subject: null,
-        celphone: null,
-        email: null,
-        message: null,
-      },
-    };
+    return {};
   },
   methods: {
     sendEmail(e) {
-      this.processEmail = JSON.stringify(this.processEmail);
-
-      var config = {
-        method: "post",
-        url: "http://localhost:3000",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        data: this.processEmail,
-      };
-      axios(config)
-        .then(function (response) {
-          console.log(JSON.stringify(response.data));
-          alert(`Email enviado com sucesso!`);
-        })
-        .catch(function (error) {
-          console.log(error);
-          alert(`Algo de errado com o envio do email... \n ` + error);
-        });
       e.preventDefault();
     },
   },

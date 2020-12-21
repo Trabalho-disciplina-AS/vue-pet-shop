@@ -19,17 +19,21 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
+              <tr v-for="item in itensPurchase.itens" :key="item.id">
                 <td class="image" data-title="No">
-                  <img src="https://via.placeholder.com/100x100" alt="#" />
+                  <img :src="imageUrl + item.id" alt="#" />
                 </td>
                 <td class="product-des" data-title="Description">
-                  <p class="product-name"><a href="#">Women Dress</a></p>
+                  <p class="product-name">
+                    <a href="#">{{ item.name }}</a>
+                  </p>
                   <p class="product-des">
                     Maboriosam in a tonto nesciung eget distingy magndapibus.
                   </p>
                 </td>
-                <td class="price" data-title="Price"><span>$110.00 </span></td>
+                <td class="price" data-title="Price">
+                  <span>${{ item.price }} </span>
+                </td>
                 <td class="qty" data-title="Qty">
                   <!-- Input Order -->
                   <div class="input-group">
@@ -37,9 +41,8 @@
                       <button
                         type="button"
                         class="btn btn-primary btn-number"
-                        disabled="disabled"
                         data-type="minus"
-                        data-field="quant[1]"
+                        @click.prevent="lessQtd(item)"
                       >
                         <i class="ti-minus"></i>
                       </button>
@@ -49,15 +52,15 @@
                       name="quant[1]"
                       class="input-number"
                       data-min="1"
-                      data-max="100"
-                      value="1"
+                      data-max="1000"
+                      :value="item.qtd"
                     />
                     <div class="button plus">
                       <button
                         type="button"
                         class="btn btn-primary btn-number"
                         data-type="plus"
-                        data-field="quant[1]"
+                        @click.prevent="addQtd(item)"
                       >
                         <i class="ti-plus"></i>
                       </button>
@@ -66,116 +69,14 @@
                   <!--/ End Input Order -->
                 </td>
                 <td class="total-amount" data-title="Total">
-                  <span>$220.88</span>
+                  <span
+                    >${{ Math.round(item.price * item.qtd * 100) / 100 }}</span
+                  >
                 </td>
                 <td class="action" data-title="Remove">
-                  <a href="#"><i class="ti-trash remove-icon"></i></a>
-                </td>
-              </tr>
-              <tr>
-                <td class="image" data-title="No">
-                  <img src="https://via.placeholder.com/100x100" alt="#" />
-                </td>
-                <td class="product-des" data-title="Description">
-                  <p class="product-name"><a href="#">Women Dress</a></p>
-                  <p class="product-des">
-                    Maboriosam in a tonto nesciung eget distingy magndapibus.
-                  </p>
-                </td>
-                <td class="price" data-title="Price"><span>$110.00 </span></td>
-                <td class="qty" data-title="Qty">
-                  <!-- Input Order -->
-                  <div class="input-group">
-                    <div class="button minus">
-                      <button
-                        type="button"
-                        class="btn btn-primary btn-number"
-                        disabled="disabled"
-                        data-type="minus"
-                        data-field="quant[2]"
-                      >
-                        <i class="ti-minus"></i>
-                      </button>
-                    </div>
-                    <input
-                      type="text"
-                      name="quant[2]"
-                      class="input-number"
-                      data-min="1"
-                      data-max="100"
-                      value="2"
-                    />
-                    <div class="button plus">
-                      <button
-                        type="button"
-                        class="btn btn-primary btn-number"
-                        data-type="plus"
-                        data-field="quant[2]"
-                      >
-                        <i class="ti-plus"></i>
-                      </button>
-                    </div>
-                  </div>
-                  <!--/ End Input Order -->
-                </td>
-                <td class="total-amount" data-title="Total">
-                  <span>$220.88</span>
-                </td>
-                <td class="action" data-title="Remove">
-                  <a href="#"><i class="ti-trash remove-icon"></i></a>
-                </td>
-              </tr>
-              <tr>
-                <td class="image" data-title="No">
-                  <img src="https://via.placeholder.com/100x100" alt="#" />
-                </td>
-                <td class="product-des" data-title="Description">
-                  <p class="product-name"><a href="#">Women Dress</a></p>
-                  <p class="product-des">
-                    Maboriosam in a tonto nesciung eget distingy magndapibus.
-                  </p>
-                </td>
-                <td class="price" data-title="Price"><span>$110.00 </span></td>
-                <td class="qty" data-title="Qty">
-                  <!-- Input Order -->
-                  <div class="input-group">
-                    <div class="button minus">
-                      <button
-                        type="button"
-                        class="btn btn-primary btn-number"
-                        disabled="disabled"
-                        data-type="minus"
-                        data-field="quant[3]"
-                      >
-                        <i class="ti-minus"></i>
-                      </button>
-                    </div>
-                    <input
-                      type="text"
-                      name="quant[3]"
-                      class="input-number"
-                      data-min="1"
-                      data-max="100"
-                      value="3"
-                    />
-                    <div class="button plus">
-                      <button
-                        type="button"
-                        class="btn btn-primary btn-number"
-                        data-type="plus"
-                        data-field="quant[3]"
-                      >
-                        <i class="ti-plus"></i>
-                      </button>
-                    </div>
-                  </div>
-                  <!--/ End Input Order -->
-                </td>
-                <td class="total-amount" data-title="Total">
-                  <span>$220.88</span>
-                </td>
-                <td class="action" data-title="Remove">
-                  <a href="#"><i class="ti-trash remove-icon"></i></a>
+                  <a @click.prevent="removeItem(item.id)" href="#"
+                    ><i class="ti-trash remove-icon"></i
+                  ></a>
                 </td>
               </tr>
             </tbody>
@@ -201,13 +102,15 @@
               <div class="col-lg-4 col-md-7 col-12">
                 <div class="right">
                   <ul>
-                    <li>Subtotal<span>$330.00</span></li>
+                    <li>
+                      Subtotal<span>${{ subtotal }}</span>
+                    </li>
                     <li>Frete<span>Free</span></li>
                     <li class="last">Valor Total<span>$310.00</span></li>
                   </ul>
                   <div class="button5">
-                    <a href="#" class="btn">Comprar</a>
-                    <router-link to="/shopgrid" class="btn"
+                    <div @click="redirectCheckout()" class="btn">Comprar</div>
+                    <router-link to="/shopgrid/alimentos" class="btn"
                       >Escolher mais produtos</router-link
                     >
                   </div>
@@ -224,8 +127,77 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "Cart",
+  data() {
+    return {
+      itensPurchase: [],
+      imageUrl: "http://localhost:5005/product_image/",
+      subtotal: 0,
+    };
+  },
+  methods: {
+    calculateSubtotal() {
+      this.subtotal = 0;
+      for (var prop in this.itensPurchase.itens) {
+        this.subtotal +=
+          this.itensPurchase.itens[prop].price *
+          this.itensPurchase.itens[prop].qtd;
+      }
+    },
+    lessQtd: function (obj) {
+      if (obj.qtd == 1) {
+        obj.qtd == 1;
+      } else {
+        obj.qtd -= 1;
+      }
+      this.calculateSubtotal();
+    },
+    addQtd: function (obj) {
+      obj.qtd += 1;
+      this.calculateSubtotal();
+    },
+    redirectCheckout: function () {
+      this.calculateSubtotal();
+
+      var config = {
+        method: "put",
+        url: "http://localhost:5002/purchase_item",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        data: JSON.stringify({ subtotal: this.subtotal }),
+      };
+
+      axios(config)
+        .then(function (response) {
+          console.log(JSON.stringify(response.data));
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+      this.$router.push("/checkout");
+    },
+    removeItem: function (item_id) {
+      axios
+        .delete("http://localhost:5002/purchase_item/item/" + item_id)
+        .then((res) => {
+          console.log(res.data);
+          this.calculateSubtotal();
+        });
+    },
+  },
+  created: function () {
+    axios.get("http://localhost:5002/purchase_item").then((res) => {
+      console.log(res.data);
+      this.itensPurchase = res.data[0];
+      console.log(this.itensPurchase.itens);
+      this.calculateSubtotal();
+    });
+  },
 };
 </script>
 
