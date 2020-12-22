@@ -9,6 +9,8 @@ import UserRegistryComponent from './pages/UserRegistryComponent'
 import LoginComponent from './pages/LoginComponent'
 import PerfilComponent from './pages/PerfilComponent'
 import CreditCardComponent from './pages/CreditCardComponent'
+import AdminProductsComponent from './pages/AdminProductsComponent'
+import AdminAddProductComponent from './pages/AdminAddProductComponent'
 
 
 Vue.use(Router)
@@ -25,5 +27,7 @@ export default new Router({
         { path: '/login', component: LoginComponent },
         { path: '/perfil', component: PerfilComponent },
         { path: '/creditcardregistry', component: CreditCardComponent },
+        { path: '/adminproducts', component: AdminProductsComponent },
+        { path: '/adminaddproduct', component: AdminAddProductComponent },
     ]
 })
