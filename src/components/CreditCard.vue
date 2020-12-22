@@ -13,9 +13,9 @@
                 <div class="row">
                   <div class="col-lg-6 col-12">
                     <div class="form-group">
-                      <label>Nome do cartão<span>*</span></label>
+                      <label>Nome do titular<span>*</span></label>
                       <input
-                        v-model="creditCard.name"
+                        v-model="creditCard.card_holder"
                         name="name"
                         type="text"
                         placeholder=""
@@ -24,9 +24,9 @@
                   </div>
                   <div class="col-lg-6 col-12">
                     <div class="form-group">
-                      <label>CPF do titular</label>
+                      <label>CPF do titular<span>*</span></label>
                       <input
-                        v-model="creditCard.cpf"
+                        v-model="creditCard.cpf_holder"
                         name="cpf"
                         type="text"
                         placeholder=""
@@ -35,7 +35,7 @@
                   </div>
                   <div class="col-lg-6 col-12">
                     <div class="form-group">
-                      <label>Número do cartão do titular</label>
+                      <label>Número do cartão<span>*</span></label>
                       <input
                         v-model="creditCard.number"
                         name="number"
@@ -58,7 +58,7 @@
                 <div class="col-lg-6 col-12">
                     <div class="form-group">
                       <label>MM/AAAA<span>*</span></label>
-                 <input type="month" id="bdaymonth" name="bdaymonth">
+                 <input v-model="creditCard.month_year" type="month" id="bdaymonth" name="bdaymonth">
                     </div>
                   </div>
                   <div class="col-12">
@@ -118,16 +118,23 @@ export default {
   data() {
     return {
       creditCard: {
-        name: null,
+        user_id: null,
         number: null,
-        cpf: null,
-        date: null,
+        card_holder: null,
+        cpf_holder: null,
         cvv: null,
+        month_year: null
       },
     };
   },
   methods: {
     registryCard(e) {
+      var options = { 
+        headers: {Authorization: `Bearer ${this.$route.params.token}`}
+      }
+      axios.get("http://localhost:8000/profile", options).then((res) => {
+        console.log(res.data)
+      })
       e.preventDefault();
     },
   },
