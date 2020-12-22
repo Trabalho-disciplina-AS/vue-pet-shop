@@ -3,61 +3,72 @@
     <div class="container">
       <div class="contact-head">
         <div class="row">
-          <div class="title">
-              <h4>Cartões de Crédito</h4>
-              <h3>A lista abaixo são os cartões cadastrados no CarePET</h3>
-          </div>
           <div class="col-lg-8 col-12">
             <div class="form-main">
-              <form class="form" v-for="card in creditCards" :key="card._id">
+              <div class="title">
+                <h4>Cadastre seu cartão de crédito</h4>
+                <h3>Preencha os campos listados abaixo</h3>
+              </div>
+              <form class="form">
                 <div class="row">
                   <div class="col-lg-6 col-12">
                     <div class="form-group">
-                      <label>Nome do titular</label>
-                      <h6>{{card.card_holder}}</h6>
+                      <label>Nome do titular<span>*</span></label>
+                      <input
+                        v-model="creditCard.card_holder"
+                        name="name"
+                        type="text"
+                        placeholder=""
+                      />
                     </div>
                   </div>
                   <div class="col-lg-6 col-12">
                     <div class="form-group">
-                      <label>CPF do titular</label>
-                      <h6>{{card.cpf_holder}}</h6>
+                      <label>CPF do titular<span>*</span></label>
+                      <input
+                        v-model="creditCard.cpf_holder"
+                        name="cpf"
+                        type="text"
+                        placeholder=""
+                      />
                     </div>
                   </div>
                   <div class="col-lg-6 col-12">
                     <div class="form-group">
-                      <label>Número do cartão</label>
-                      <h6>{{card.number}}</h6>
+                      <label>Número do cartão<span>*</span></label>
+                      <input
+                        v-model="creditCard.number"
+                        name="number"
+                        type="number"
+                        placeholder=""
+                      />
                     </div>
                   </div>
                   <div class="col-lg-6 col-12">
                     <div class="form-group">
-                      <label>CVV</label>
-                    <h6>{{card.cvv}}</h6>
+                      <label>CVV<span>*</span></label>
+                      <input
+                        v-model="creditCard.cvv"
+                        name="cvv"
+                        type="text"
+                        placeholder=""
+                      />
                     </div>
                   </div>
                 <div class="col-lg-6 col-12">
                     <div class="form-group">
-                      <label>MM/AAAA</label>
-                 <h6>{{card.month}}/{{card.year}}</h6>
+                      <label>MM/AAAA<span>*</span></label>
+                 <input v-model="creditCard.month_year" type="month" id="bdaymonth" name="bdaymonth">
                     </div>
                   </div>
                   <div class="col-12">
                     <div class="form-group button">
-                      <button type="submit" class="btn">Realizar Pagamento</button>
-                      <button type="submit" @click.prevent="removeCard(card._id)" class="btn">Remover Cartão</button>
+                      <button  @click.prevent="registryCard()" class="btn">Salvar Cartão</button>
+                      <router-link class="btn" to="/creditcards">Visualizar Cartões</router-link>
                     </div>
                   </div>
                 </div>
-                <br>
-                <br>
-                <br>
               </form>
-
-                  <div class="col-12">
-                    <div class="form-group button">
-                      <router-link class="btn" to="/creditcardregistry">Adicionar Cartão</router-link>
-                    </div>
-                  </div>
             </div>
           </div>
           <div class="col-lg-4 col-12">
@@ -104,35 +115,33 @@
 import axios from "axios";
 
 export default {
-  name: "CreditCard",
+  name: "CreditCardRegistry",
   data() {
     return {
-        creditCards: [],
-    }
+      creditCard: {
+        number: null,
+        card_holder: null,
+        cpf_holder: null,
+        cvv: null,
+        month_year: null
+      },
+    };
   },
   methods: {
-    removeCard(id) {
-      axios.delete("http://localhost:5005/card?card_id=" + id)
+    registryCard(e) {
+      this.creditCard.month = this.creditCard.month_year.split("-")[0];
+      this.creditCard.year = this.creditCard.month_year.split("-")[1]; 
+      console.log(this.creditCard);
+      axios.post("http://localhost:5005/card", this.creditCard)
       .then((res) => {
         console.log(res.data);
-        alert("Removido com sucesso... :)");
+        alert("Cartão salvo com sucesso!");
       })
       .catch((err) => {
         console.log(err);
-        alert("Erro durante a remoção...");
-      });
+      })
+      e.preventDefault();
     },
-  },
-
-  created: function () {
-    axios.get("http://localhost:5005/card?user_id=denis")
-    .then((res) => {
-        console.log(res.data);
-        this.creditCards = res.data;
-    })
-    .catch((err) => {
-        console.log(err);
-    });
   },
 };
 </script>

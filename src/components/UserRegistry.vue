@@ -66,9 +66,9 @@
                   <div class="form-group">
                     <label>Telefone<span>*</span></label>
                     <input
-                      v-model="user.celphone"
+                      v-model="user.cellphone"
                       type="text"
-                      name="celphone"
+                      name="cellphone"
                       placeholder=""
                       required="required"
                     />
@@ -167,7 +167,7 @@ export default {
       errors: [],
       user: {
         name: null,
-        celphone: null,
+        cellphone: null,
         lastname: null,
         email: null,
         password: null,
@@ -185,7 +185,7 @@ export default {
 
       var config = {
         method: "post",
-        url: "http://localhost:8000/signup",
+        url: "http://localhost:5006/signup",
         headers: {
           "Content-Type": "application/json",
         },

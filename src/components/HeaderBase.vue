@@ -155,9 +155,6 @@
                           <router-link to="/cart">Carrinho</router-link>
                         </li>
                         <li>
-                          <router-link to="/checkout">Checkout</router-link>
-                        </li>
-                        <li>
                           <router-link to="/contact">Contato</router-link>
                         </li>
                       </ul>

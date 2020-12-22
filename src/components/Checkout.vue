@@ -16,10 +16,6 @@
         <div class="col-lg-12 col-12">
           <div class="order-details">
 
-
-
-
-
           <table class="table shopping-summery">
             <thead>
               <tr class="main-hading">
@@ -80,7 +76,7 @@
                 <ul>
                   <li><a target="_blank" rel="noopener noreferrer" :href="linkPayment">Boleto</a></li>
                   <li>
-                    <router-link to="/cart">Cartão de Crédito</router-link>
+                    <router-link to="/">Cartão de Crédito</router-link>
                   </li>
                 </ul>
 
@@ -90,7 +86,7 @@
             <!-- Payment Method Widget -->
             <div class="single-widget payement">
               <div class="content">
-                <img src="static/images/payment-method.png" alt="#" />
+                <img src="#" alt="#" />
               </div>
             </div>
             <!--/ End Payment Method Widget -->
@@ -123,6 +119,7 @@ export default {
   data() {
     return {
       items: {},
+      user: null,
       linkPayment: "",
       linkCreditCard: "",
       imageUrl: "http://localhost:5000/product_image/",
@@ -133,15 +130,15 @@ export default {
       this.items = res.data[0];      
     });
 
-    console.log("working...");
-    console.log(this.items.subtotal);
+    axios.get("http://localhost:5006/profile")
+    .then((res) => {
+      this.user = res.data[0];
+      this.linkPayment = `http://localhost:4001/payment?value=${this.items.subtotal}&name=${this.user.name}&cpf=${this.user.cpf}&address=${this.user.address}`
 
-    axios.get("http://localhost:8000/profile").then((res) => {
-      this.items = res.data[0];    
-        
+    })
+    .catch((err) => {
+      console.log(err);
     });
-
-    this.linkPayment = `http://localhost:4001/payment?value=${this.items.subtotal}&name=denis&cpf=064865933&address=rua`
   },
 };
 </script>

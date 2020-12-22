@@ -23,6 +23,10 @@
                   <i class="ti-power-off"></i
                   ><router-link to="/login">Login</router-link>
                 </li>
+                <li>
+                  <i class="ti-shift-left"></i
+                  ><button @click="logout()" >Logout</button>
+                </li>
               </ul>
             </div>
             <!-- End Top Right -->
@@ -34,8 +38,41 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   name: "HeaderOption",
+  methods: {
+    logout() {
+
+    axios
+      .delete("http://localhost:5006/login")
+      .then((res) => {
+        console.log(res.data);
+
+        try {
+          this.$router.push('/home')
+        }
+        catch(err) {
+          console.log(err);
+        }
+        alert("Logout realizado com sucesso"); 
+
+      })
+      .catch((err) => {
+        console.log(err.data);
+        alert("Você não está logado '-'");
+      });
+    }
+
+  },
+
+  computed: {
+      currentRouteName() {
+          return this.$route.name;
+      }
+  }
+
 };
 </script>
 

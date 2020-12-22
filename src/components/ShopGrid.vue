@@ -10,22 +10,22 @@
               <!-- Single Widget -->
               <div class="single-widget category">
                 <h3 class="title">Categorias</h3>
-                <!-- <ul class="categor-list">
+                <ul class="categor-list">
                   <li>
-                    <route-link to="/shopgrid/alimentos">Alimentos</route-link>
+                    <router-link to="/shopgrid/alimentos">Alimentos</router-link>
                   </li>
                   <li>
-                    <route-link to="/shopgrid/acessorios"
-                      >Acessórios</route-link
+                    <router-link to="/shopgrid/acessorios"
+                      >Acessórios</router-link
                     >
                   </li>
                   <li>
-                    <route-link to="/shopgrid/limpeza">Limpeza</route-link>
+                    <router-link to="/shopgrid/limpeza">Limpeza</router-link>
                   </li>
                   <li>
-                    <route-link to="/shopgrid/remedios">Remédios</route-link>
+                    <router-link to="/shopgrid/remedios">Remédios</router-link>
                   </li>
-                </ul> -->
+                </ul>
               </div>
 
               <!--/ End Single Widget -->

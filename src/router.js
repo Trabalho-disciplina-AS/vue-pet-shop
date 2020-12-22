@@ -9,6 +9,7 @@ import UserRegistryComponent from './pages/UserRegistryComponent'
 import LoginComponent from './pages/LoginComponent'
 import PerfilComponent from './pages/PerfilComponent'
 import CreditCardComponent from './pages/CreditCardComponent'
+import CreditCardRegistryComponent from './pages/CreditCardRegistryComponent'
 import AdminProductsComponent from './pages/AdminProductsComponent'
 import AdminAddProductComponent from './pages/AdminAddProductComponent'
 
@@ -26,7 +27,8 @@ export default new Router({
         { path: '/userregistry', component: UserRegistryComponent },
         { path: '/login', component: LoginComponent },
         { path: '/perfil', component: PerfilComponent },
-        { path: '/creditcardregistry', component: CreditCardComponent },
+        { path: '/creditcards', component: CreditCardComponent },
+        { path: '/creditcardregistry', component: CreditCardRegistryComponent },
         { path: '/adminproducts', component: AdminProductsComponent },
         { path: '/adminaddproduct', component: AdminAddProductComponent },
     ]

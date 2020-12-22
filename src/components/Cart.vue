@@ -176,25 +176,36 @@ export default {
       this.calculateSubtotal();
     },
     redirectCheckout: function () {
-      this.calculateSubtotal(); 
-      var config = {
-        method: "put",
-        url: "http://localhost:5001/purchase_item",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        data: { subtotal: this.subtotal, total: this.total, delivery_fee: this.delivery_fee },
-      };
+      this.calculateSubtotal();
 
-      axios(config)
-        .then(function (response) {
-          console.log(JSON.stringify(response.data));
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+      axios.get("http://localhost:5006/profile").then((res) => {
+        console.log(res.data);
+        if ('error' in res.data) {
+          this.$router.push('/userregistry')
+          alert("É necessário realizar o login"); 
+        } else {
+          this.$router.push("/checkout");
+        }
 
-      this.$router.push("/checkout");
+      });         
+      // var config = {
+      //   method: "put",
+      //   url: "http://localhost:5001/purchase_item",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   data: { subtotal: this.subtotal, total: this.total, delivery_fee: this.delivery_fee },
+      // };
+
+      // axios(config)
+      //   .then(function (response) {
+      //     console.log(JSON.stringify(response.data));
+      //   })
+      //   .catch(function (error) {
+      //     console.log(error);
+      //   });
+
+      // this.$router.push("/checkout");
     },
     removeItem: function (item_id) {
       axios

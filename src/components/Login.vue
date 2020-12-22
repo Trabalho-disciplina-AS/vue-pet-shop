@@ -43,7 +43,7 @@
               </div>
             </form>
             <!--/ End Form -->
-            <p>{{ token }}</p>
+            <router-link to="/userregistry">Cadastre-se</router-link>
             <div id="blank-space"></div>
           </div>
         </div>
@@ -67,10 +67,16 @@ export default {
   },
   methods: {
     loginSystem(e) {
-      axios.post("http://localhost:8000/login", {email: this.email, password: this.password}).then((res) => {
-        this.token = res.data["token"];
-        this.updateItensPurchase(this.token);
-      });
+      axios.post("http://localhost:5006/login", {email: this.email, password: this.password})
+      .then((res) => {
+        console.log(res.data);
+        alert("Usuário logado com sucesso :)");
+        this.$router.push('/shopgrid/alimentos')
+      })
+        .catch((err) => {
+          console.log(err);
+          alert("Erro durante o login...");
+        });
       e.preventDefault();
     },
     updateItensPurchase(token) {

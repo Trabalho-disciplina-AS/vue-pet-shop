@@ -446,28 +446,15 @@ export default {
       .post("http://localhost:5001/purchase_item", product)
       .then((res) => {
           console.log(JSON.stringify(res.data));
-          console.log("OK add normal");
+          console.log("Item adicionado ao carrinho com sucesso!");
       })
       .catch(function (error) {
         console.log(error);
+        console.log("Erro ao adicionar item no carrinho :(");
+
       });
 
-      // var config = {
-      //   method: "post",
-      //   url: "http://localhost:5001/purchase_item",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   data: product,
-      // };
 
-      // axios(config)
-      //   .then(function (response) {
-      //     console.log(JSON.stringify(response.data));
-      //   })
-      //   .catch(function (error) {
-      //     console.log(error);
-      //   });
     },
   },
 

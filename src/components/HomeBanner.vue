@@ -20,7 +20,7 @@
                       somente aqui, no CarePET.
                     </p>
                     <div class="button">
-                      <a href="#" class="btn">Compre Agora!</a>
+                      <router-link to="/shopgrid/alimentos" class="btn">Compre Agora!</router-link>
                     </div>
                   </div>
                 </div>
