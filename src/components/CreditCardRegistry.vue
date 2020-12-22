@@ -39,7 +39,7 @@
                       <input
                         v-model="creditCard.number"
                         name="number"
-                        type="number"
+                        type="text"
                         placeholder=""
                       />
                     </div>
@@ -139,6 +139,7 @@ export default {
       })
       .catch((err) => {
         console.log(err);
+        alert("Erro ao cadastrar o cartão...");
       })
       e.preventDefault();
     },
