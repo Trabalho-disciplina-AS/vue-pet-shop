@@ -63,7 +63,8 @@
                     <div class="form-group">
                       <label>Foto do Produto</label>
                       <input
-                        id="reposition"
+                        id="file"
+                        ref="file"
                         type="file"
                         @change="onFileChange"
                       />
@@ -115,16 +116,29 @@ export default {
   },
   methods: {
     registryProduct(e) {
-      var fd = new FormData();
-      fd.append("image", this.image);
-      this.newProduct.image = fd;
       axios
         .post("http://localhost:5000/products/admin", this.newProduct)
         .then((res) => {
-          console.log("Success on registry");
-          console.log(res.data);
-        });
+          var product_id = res.data["_id"];
 
+          var fd = new FormData();
+          fd.append("image", this.$refs.file.files[0]);
+          axios
+            .post("http://localhost:5000/products/admin/" + product_id, fd, {
+              headers: {
+                "Content-Type": "multipart/form-data",
+              },
+            })
+            .then(function () {
+              alert("Produto salvo com sucesso!");
+            })
+            .catch(function () {
+              alert("Erro ao salvar o produto...");
+            });
+        })
+        .catch(function (err) {
+          console.log(err);
+        });
       e.preventDefault();
     },
 
