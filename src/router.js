@@ -24,6 +24,6 @@ export default new Router({
         { path: '/userregistry', component: UserRegistryComponent },
         { path: '/login', component: LoginComponent },
         { path: '/perfil', component: PerfilComponent },
-        { path: '/creditcardregistry', component: CreditCardComponent },
+        { path: '/creditcardregistry/:token', component: CreditCardComponent },
     ]
 })
