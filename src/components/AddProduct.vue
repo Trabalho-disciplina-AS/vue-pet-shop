@@ -59,6 +59,20 @@
                     </div>
                   </div>
 
+                  <div id="morebottom" class="col-12">
+                    <div class="form-group button">
+                      <button type="submit" class="btn">
+                        Cadastrar Novo Produto
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+                
+                <br>
+                <br>
+              <form class="form" @submit="registryImage" method="post">
+                  <div class="row">
                   <div class="col-lg-6 col-12">
                     <div class="form-group">
                       <label>Foto do Produto</label>
@@ -79,14 +93,15 @@
                     </div>
                   </div>
 
+
                   <div id="morebottom" class="col-12">
                     <div class="form-group button">
                       <button type="submit" class="btn">
-                        Cadastrar Novo Produto
+                        Upload Foto Produto
                       </button>
                     </div>
                   </div>
-                </div>
+                  </div>
               </form>
             </div>
           </div>
@@ -107,41 +122,48 @@ export default {
         name: null,
         price: null,
         category: null,
-        discount: null,
         discount_price: null,
-        image: null,
       },
       url: null,
     };
   },
   methods: {
     registryProduct(e) {
-      axios
-        .post("http://localhost:5000/products/admin", this.newProduct)
-        .then((res) => {
-          var product_id = res.data["_id"];
+      axios.post("http://localhost:5000/products/admin", this.newProduct)
+      .then((res) => {
+        alert("Produto salvo com sucesso!");
+        console.log(res.data);
+        this.newProduct._id = res.data["_id"];
+      })
+      .catch(function (err) {
+        alert("Erro ao salvar o produto...");
+        console.log(err);
+      });
 
-          var fd = new FormData();
-          fd.append("image", this.$refs.file.files[0]);
-          axios
-            .post("http://localhost:5000/products/admin/" + product_id, fd, {
-              headers: {
-                "Content-Type": "multipart/form-data",
-              },
-            })
-            .then(function () {
-              alert("Produto salvo com sucesso!");
-            })
-            .catch(function () {
-              alert("Erro ao salvar o produto...");
-            });
-        })
-        .catch(function (err) {
-          console.log(err);
-        });
       e.preventDefault();
     },
+    registryImage(e) {
 
+    var fd = new FormData();
+    fd.append("image", this.$refs.file.files[0]);
+    axios
+      .post("http://localhost:5000/products/admin/" + this.newProduct._id, fd, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((res) => {
+        alert("Imagem salva com sucesso!");
+        console.log(res.data);
+
+      })
+      .catch((err) => {
+        alert("Erro ao salvar aImagem");
+        console.log(err);
+      });
+
+      e.preventDefault();
+    },
     onFileChange(e) {
       const file = e.target.files[0];
       this.url = URL.createObjectURL(file);

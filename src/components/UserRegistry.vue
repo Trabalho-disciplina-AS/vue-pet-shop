@@ -191,6 +191,7 @@ export default {
         },
         data: this.user,
       };
+      console.log(this.user);
       axios(config)
         .then(function (response) {
           console.log(JSON.stringify(response.data));

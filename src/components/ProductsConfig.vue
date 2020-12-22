@@ -37,7 +37,7 @@
                 </td>
                 <td class="action" data-title="Remove">
                   <!-- @click.prevent="removeproduct(product.id)" -->
-                  <a href="#"><i class="ti-trash remove-icon"></i></a>
+                  <a @click.prevent="removeProduct(product.id)"><i class="ti-trash remove-icon"></i></a>
                 </td>
               </tr>
             </tbody>
@@ -61,7 +61,19 @@ export default {
       imageUrl: "http://localhost:5000/product_image/",
     };
   },
-  methods: {},
+  methods: {
+    removeProduct(id) {
+       axios.delete("http://localhost:5000/products/admin/" + id)
+      .then((res) => {
+        alert("Deletado com sucesso!");
+        console.log(res.data);
+      })
+      .catch(function (err) {
+        alert("Erro ao deletar...");
+        console.log(err);
+      });
+    }
+  },
   created: function () {
     axios.get("http://localhost:5000/products?clean_id=true").then((res) => {
       console.log(res.data);
