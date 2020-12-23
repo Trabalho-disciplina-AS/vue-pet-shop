@@ -191,24 +191,23 @@ export default {
           this.$router.push("/checkout");
         }
       });
-      // var config = {
-      //   method: "put",
-      //   url: "http://localhost:5001/purchase_item",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   data: { subtotal: this.subtotal, total: this.total, delivery_fee: this.delivery_fee },
-      // };
+      var config = {
+        method: "put",
+        url: "http://localhost:5001/purchase_item",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        data: { subtotal: this.subtotal, total: this.total, delivery_fee: this.delivery_fee },
+      };
 
-      // axios(config)
-      //   .then(function (response) {
-      //     console.log(JSON.stringify(response.data));
-      //   })
-      //   .catch(function (error) {
-      //     console.log(error);
-      //   });
+      axios(config)
+        .then(function (response) {
+          console.log(JSON.stringify(response.data));
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
 
-      // this.$router.push("/checkout");
     },
     removeItem: function (item_id) {
       axios

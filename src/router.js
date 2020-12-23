@@ -12,6 +12,7 @@ import CreditCardComponent from './pages/CreditCardComponent'
 import CreditCardRegistryComponent from './pages/CreditCardRegistryComponent'
 import AdminProductsComponent from './pages/AdminProductsComponent'
 import AdminAddProductComponent from './pages/AdminAddProductComponent'
+import OrdersComponent from './pages/OrdersComponent'
 
 
 Vue.use(Router)
@@ -31,5 +32,6 @@ export default new Router({
         { path: '/creditcardregistry', component: CreditCardRegistryComponent },
         { path: '/adminproducts', component: AdminProductsComponent },
         { path: '/adminaddproduct', component: AdminAddProductComponent },
+        { path: '/orders', component: OrdersComponent },
     ]
 })

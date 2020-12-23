@@ -74,7 +74,12 @@
               <h2>Formas de Pagamento</h2>
               <div class="content">
                 <ul>
-                  <li><a @click.prevent="generateOrder()" target="_blank" rel="noopener noreferrer" :href="linkPayment">Boleto</a></li>
+                  <li>
+                    <a target="_blank" rel="noopener noreferrer" :href="linkPayment">Gerar Boleto</a>
+                  </li>
+                  <li>
+                  <button class="btn" @click.prevent="generateOrder()">Finalizar Compra</button>
+                  </li>
                   <li>
                     <router-link to="/creditcards">Cartão de Crédito</router-link>
                   </li>
@@ -138,7 +143,7 @@ export default {
       var method = "boleto";
       var newOrder = {products: this.products_id, user_id: this.user["_id"]["$oid"], payment_method: method}
 
-      axios.post("http://localhost:5003/order", newOrder)
+      axios.post("http://localhost:5002/order", newOrder)
       .then((res) => {
         console.log(res.data);
         alert("Seu pedido foi gerado com sucesso! :D");
@@ -152,7 +157,7 @@ export default {
       axios.delete("http://localhost:5001/purchase_item")
       .then((res) => {
         console.log(res.data);
-        this.$router.push('/home') 
+        this.$router.push('/orders') 
       })
   
     },
@@ -167,6 +172,11 @@ export default {
     axios.get("http://localhost:5006/profile")
     .then((res) => {
       this.user = res.data[0];
+      console.log("HERE DRICA");
+      console.log(this.items.subtotal);
+      console.log(this.user.name);
+      console.log(this.user.cpf);
+      console.log(this.user.address);
       this.linkPayment = `http://localhost:4001/payment?value=${this.items.subtotal}&name=${this.user.name}&cpf=${this.user.cpf}&address=${this.user.address}`
     })
     .catch((err) => {
