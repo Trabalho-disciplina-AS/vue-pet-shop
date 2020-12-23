@@ -78,9 +78,6 @@
                     <a target="_blank" rel="noopener noreferrer" :href="linkPayment">Gerar Boleto</a>
                   </li>
                   <li>
-                  <button class="btn" @click.prevent="generateOrder()">Finalizar Compra</button>
-                  </li>
-                  <li>
                     <router-link to="/creditcards">Cartão de Crédito</router-link>
                   </li>
                 </ul>
@@ -99,7 +96,7 @@
             <div class="single-widget get-button">
               <div class="content">
                 <div class="button">
-                  <a href="#" class="btn">Finalizar Compra</a>
+                  <button @click.prevent="generateOrder()" class="btn">Finalizar Compra</button>
                 </div>
               </div>
             </div>
@@ -134,12 +131,14 @@ export default {
   },
 
   methods: {
+
     generateOrder() {
       for (var prop in this.items.itens) {
         this.products_id[prop] = this.items.itens[prop]["id"];
       }
       console.log(this.items);
       console.log(this.products_id);
+      console.log(this.user);
       var method = "boleto";
       var newOrder = {products: this.products_id, user_id: this.user["_id"]["$oid"], payment_method: method}
 
@@ -162,13 +161,14 @@ export default {
   
     },
 
+
   },
 
   created: function () {
     axios.get("http://localhost:5001/purchase_item").then((res) => {
       this.items = res.data[0];
     });
-
+     console.log(this.user);
     axios.get("http://localhost:5006/profile")
     .then((res) => {
       this.user = res.data[0];
@@ -182,6 +182,8 @@ export default {
     .catch((err) => {
       console.log(err);
     });
+
+
   },
 };
 </script>

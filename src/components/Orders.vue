@@ -89,8 +89,10 @@ export default {
   },
 
   created: function () {
+    // fazer request pra pegar user data pra 5006/profile
+    // passar user_id 5002/order/<user_id>
     axios
-      .get("http://localhost:5006/order")
+      .get("http://localhost:5002/order")
       .then((res) => {
         console.log(res.data);
         this.orders = res.data;

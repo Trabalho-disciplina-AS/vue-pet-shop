@@ -191,6 +191,7 @@ export default {
           this.$router.push("/checkout");
         }
       });
+      this.$router.push("/checkout");
       var config = {
         method: "put",
         url: "http://localhost:5001/purchase_item",

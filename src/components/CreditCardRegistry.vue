@@ -128,11 +128,11 @@ export default {
     };
   },
   methods: {
-    registryCard(e) {
+    registryCard() {
       this.creditCard.month = this.creditCard.month_year.split("-")[0];
       this.creditCard.year = this.creditCard.month_year.split("-")[1]; 
       console.log(this.creditCard);
-      axios.post("http://localhost:5005/card", this.creditCard)
+      axios.post("http://localhost:5010/card", this.creditCard)
       .then((res) => {
         console.log(res.data);
         alert("Cartão salvo com sucesso!");
@@ -141,7 +141,8 @@ export default {
         console.log(err);
         alert("Erro ao cadastrar o cartão...");
       })
-      e.preventDefault();
+      // e.preventDefault();
+
     },
   },
 };

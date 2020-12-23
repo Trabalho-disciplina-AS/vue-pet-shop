@@ -6,7 +6,7 @@
         <!-- Single Banner  -->
         <div class="col-lg-6 col-md-6 col-12">
           <div class="single-banner">
-            <img :src="product1.image_url" alt="#" />
+            <img src="static/images/dog.jpg" alt="#" />
             <div class="content">
               <p>{{ product1.category }}</p>
               <h3>
@@ -21,7 +21,7 @@
         <!-- Single Banner  -->
         <div class="col-lg-6 col-md-6 col-12">
           <div class="single-banner">
-            <img :src="product2.image_url" alt="#" />
+            <img src="static/images/gato-fofo.jpg" alt="#" />
             <div class="content">
               <p>{{ product2.category }}</p>
               <h3>

@@ -111,11 +111,12 @@ export default {
         products: null,
         user: null,
         products_id: [],
+        items: null,
     }
   },
   methods: {
     removeCard(id) {
-      axios.delete("http://localhost:5005/card?card_id=" + id)
+      axios.delete("http://localhost:5010/card?card_id=" + id)
       .then((res) => {
         console.log(res.data);
         alert("Removido com sucesso... :)");
@@ -127,21 +128,15 @@ export default {
     },
 
     generateOrder() {
-      axios.get("http://localhost:5001/purchase_item").then((res) => {
-        this.products = res.data[0];
-      });
-
-      for (var prop in this.products.itens) {
-        this.products_id[prop] = this.products.itens[prop]["id"];
+      for (var prop in this.items.itens) {
+        this.products_id[prop] = this.items.itens[prop]["id"];
       }
-  
+      console.log(this.items);
       console.log(this.products_id);
-      console.log(this.user);
-
       var method = "cartão de crédito";
-      var newOrder = {products: this.products_id, user_id: this.user, payment_method: method}
+      var newOrder = {products: this.products_id, user_id: this.user["_id"]["$oid"], payment_method: method}
 
-      axios.post("http://localhost:5003/order", newOrder)
+      axios.post("http://localhost:5002/order", newOrder)
       .then((res) => {
         console.log(res.data);
         alert("Seu pedido foi gerado com sucesso! :D");
@@ -151,18 +146,19 @@ export default {
         console.log(err);
       });
 
+      // esvaziar carrinho
       axios.delete("http://localhost:5001/purchase_item")
       .then((res) => {
         console.log(res.data);
-        this.$router.push('/home') 
+        this.$router.push('/orders') 
       })
-
+  
     },
 
   },
 
   created: function () {
-    axios.get("http://localhost:5005/card?user_id=denis")
+    axios.get("http://localhost:5010/card")
     .then((res) => {
         console.log(res.data);
         this.creditCards = res.data;

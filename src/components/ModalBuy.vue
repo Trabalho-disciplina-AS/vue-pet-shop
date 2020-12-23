@@ -33,7 +33,7 @@
                     <div class="quickview-stock green">
                       <span
                         ><i class="fa fa-check-circle-o quickview-stock"></i>
-                        Stock: {{ food.qtd_stock }}
+                        Stock: {{ food.qtd }}
                       </span>
                     </div>
 
@@ -139,7 +139,7 @@
                     <div class="quickview-stock green">
                       <span
                         ><i class="fa fa-check-circle-o quickview-stock"></i>
-                        Stock: {{ accessory.qtd_stock }}
+                        Stock: {{ accessory.qtd }}
                       </span>
                     </div>
 
@@ -245,7 +245,7 @@
                     <div class="quickview-stock green">
                       <span
                         ><i class="fa fa-check-circle-o quickview-stock"></i>
-                        Stock: {{ cleaning.qtd_stock }}
+                        Stock: {{ cleaning.qtd }}
                       </span>
                     </div>
 
@@ -351,7 +351,7 @@
                     <div class="quickview-stock green">
                       <span
                         ><i class="fa fa-check-circle-o quickview-stock"></i>
-                        Stock: {{ medicine.qtd_stock }}
+                        Stock: {{ medicine.qtd }}
                       </span>
                     </div>
 
