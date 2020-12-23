@@ -74,9 +74,9 @@
               <h2>Formas de Pagamento</h2>
               <div class="content">
                 <ul>
-                  <li><a target="_blank" rel="noopener noreferrer" :href="linkPayment">Boleto</a></li>
+                  <li><a @click.prevent="generateOrder()" target="_blank" rel="noopener noreferrer" :href="linkPayment">Boleto</a></li>
                   <li>
-                    <router-link to="/">Cartão de Crédito</router-link>
+                    <router-link to="/creditcards">Cartão de Crédito</router-link>
                   </li>
                 </ul>
 
@@ -86,7 +86,7 @@
             <!-- Payment Method Widget -->
             <div class="single-widget payement">
               <div class="content">
-                <img src="#" alt="#" />
+                <img src="static/images/payments.png" alt="#" />
               </div>
             </div>
             <!--/ End Payment Method Widget -->
@@ -123,18 +123,51 @@ export default {
       linkPayment: "",
       linkCreditCard: "",
       imageUrl: "http://localhost:5000/product_image/",
+      products: null,
+      products_id: [],
     };
   },
+
+  methods: {
+    generateOrder() {
+      for (var prop in this.items.itens) {
+        this.products_id[prop] = this.items.itens[prop]["id"];
+      }
+      console.log(this.items);
+      console.log(this.products_id);
+      var method = "boleto";
+      var newOrder = {products: this.products_id, user_id: this.user["_id"]["$oid"], payment_method: method}
+
+      axios.post("http://localhost:5003/order", newOrder)
+      .then((res) => {
+        console.log(res.data);
+        alert("Seu pedido foi gerado com sucesso! :D");
+      })
+      .catch((err) => {
+        alert("Erro ao gerar o seu pedido...");
+        console.log(err);
+      });
+
+      // esvaziar carrinho
+      axios.delete("http://localhost:5001/purchase_item")
+      .then((res) => {
+        console.log(res.data);
+        this.$router.push('/home') 
+      })
+  
+    },
+
+  },
+
   created: function () {
     axios.get("http://localhost:5001/purchase_item").then((res) => {
-      this.items = res.data[0];      
+      this.items = res.data[0];
     });
 
     axios.get("http://localhost:5006/profile")
     .then((res) => {
       this.user = res.data[0];
       this.linkPayment = `http://localhost:4001/payment?value=${this.items.subtotal}&name=${this.user.name}&cpf=${this.user.cpf}&address=${this.user.address}`
-
     })
     .catch((err) => {
       console.log(err);

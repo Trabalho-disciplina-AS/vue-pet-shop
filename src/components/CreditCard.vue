@@ -43,8 +43,8 @@
                   </div>
                   <div class="col-12">
                     <div class="form-group button">
-                      <button type="submit" class="btn">Realizar Pagamento</button>
-                      <button type="submit" @click.prevent="removeCard(card._id)" class="btn">Remover Cartão</button>
+                      <button @click.prevent="generateOrder()" class="btn">Realizar Pagamento</button>
+                      <button @click.prevent="removeCard(card._id)" class="btn">Remover Cartão</button>
                     </div>
                   </div>
                 </div>
@@ -108,6 +108,9 @@ export default {
   data() {
     return {
         creditCards: [],
+        products: null,
+        user: null,
+        products_id: [],
     }
   },
   methods: {
@@ -122,6 +125,40 @@ export default {
         alert("Erro durante a remoção...");
       });
     },
+
+    generateOrder() {
+      axios.get("http://localhost:5001/purchase_item").then((res) => {
+        this.products = res.data[0];
+      });
+
+      for (var prop in this.products.itens) {
+        this.products_id[prop] = this.products.itens[prop]["id"];
+      }
+  
+      console.log(this.products_id);
+      console.log(this.user);
+
+      var method = "cartão de crédito";
+      var newOrder = {products: this.products_id, user_id: this.user, payment_method: method}
+
+      axios.post("http://localhost:5003/order", newOrder)
+      .then((res) => {
+        console.log(res.data);
+        alert("Seu pedido foi gerado com sucesso! :D");
+      })
+      .catch((err) => {
+        alert("Erro ao gerar o seu pedido...");
+        console.log(err);
+      });
+
+      axios.delete("http://localhost:5001/purchase_item")
+      .then((res) => {
+        console.log(res.data);
+        this.$router.push('/home') 
+      })
+
+    },
+
   },
 
   created: function () {
@@ -133,6 +170,15 @@ export default {
     .catch((err) => {
         console.log(err);
     });
+
+    axios.get("http://localhost:5006/profile")
+    .then((res) => {
+      this.user = res.data[0]["_id"]["$oid"];
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+
   },
 };
 </script>

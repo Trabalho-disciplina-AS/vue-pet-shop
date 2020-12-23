@@ -446,11 +446,11 @@ export default {
       .post("http://localhost:5001/purchase_item", product)
       .then((res) => {
           console.log(JSON.stringify(res.data));
-          console.log("Item adicionado ao carrinho com sucesso!");
+          alert("Item adicionado ao carrinho com sucesso!");
       })
       .catch(function (error) {
         console.log(error);
-        console.log("Erro ao adicionar item no carrinho :(");
+        alert("Erro ao adicionar item no carrinho :(");
 
       });
 
